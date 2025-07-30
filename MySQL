@@ -1,0 +1,24 @@
+
+CREATE DATABASE  admin_books;
+
+USE admin_books;
+
+CREATE TABLE  books (
+    id INT PRIMARY KEY,
+    title VARCHAR(255),
+    author VARCHAR(255),
+    price DOUBLE
+);
+
+
+CREATE DATABASE  user_orders;
+
+USE user_orders;
+
+CREATE TABLE libraries (
+    id INT,
+    title VARCHAR(255),
+    author VARCHAR(255),
+    price DOUBLE,
+    order_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
