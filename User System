@@ -1,0 +1,31 @@
+package project;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+public class UserSystem {
+private UserDatabaseManager db;
+private Queue<Integer> borrowQueue;
+public UserSystem(UserDatabaseManager dbManager) {
+db = dbManager;
+borrowQueue = new LinkedList<>();
+}
+public void displayBooks() throws SQLException {
+db.displayBooks();
+}
+public void requestBook(Scanner scanner) throws SQLException {
+System.out.print("Enter book ID to borrow: ");
+int bookId = scanner.nextInt();
+scanner.nextLine();
+borrowQueue.add(bookId);
+System.out.println("Your request has been queued.");
+}
+public void processRequests() throws SQLException {
+while (!borrowQueue.isEmpty()) {
+int bookId = borrowQueue.poll();
+System.out.println("Processing request for book ID: " + bookId);
+db.borrowBook(bookId);
+}
+}
+
+}
