@@ -1,0 +1,102 @@
+package project;
+import java.sql.SQLException;
+import java.util.Scanner;
+public class BookStoreApp {
+public static void main(String[] args) throws SQLException {
+AdminDatabaseManager adminDb = new AdminDatabaseManager();
+UserDatabaseManager userDb = new UserDatabaseManager();
+
+adminDb.connect();  
+        userDb.connect();  
+         
+        AdminSystem adminSystem = new AdminSystem(adminDb);  
+        UserSystem userSystem = new UserSystem(userDb);  
+         
+        Scanner scanner = new Scanner(System.in);  
+         
+        while (true) {  
+            System.out.println("\n=== Bookstore System ===");  
+            System.out.println("1. Admin Panel");  
+            System.out.println("2. User Panel");  
+            System.out.println("3. Exit");  
+            System.out.print("Select panel: ");  
+             
+            int panelChoice = scanner.nextInt();  
+            scanner.nextLine();  
+             
+            switch (panelChoice) {  
+                case 1:  
+                    adminPanel(adminSystem, scanner);  
+                    break;  
+                case 2:  
+                    userPanel(userSystem, scanner);  
+                    break;  
+                case 3:  
+                    System.out.println("Exiting...");  
+                     
+                    return;  
+                default:  
+                    System.out.println("Invalid choice.");  
+            }  
+        }  
+    }  
+    public static void adminPanel(AdminSystem adminSystem, Scanner scanner) throws SQLException {  
+        while (true) {  
+            System.out.println("\n=== Admin Panel ===");  
+            System.out.println("1. Add Book");  
+            System.out.println("2. View All Books");  
+            System.out.println("3. View Recent Actions");  
+            System.out.println("4. Back to Main Menu");  
+            System.out.print("Select option: ");  
+             
+            int choice = scanner.nextInt();  
+            scanner.nextLine();  
+             
+            switch (choice) {  
+                case 1:  
+                    adminSystem.addBook(scanner);  
+                    break;  
+                case 2:  
+                    adminSystem.db.showAllBooks();  
+                    break;  
+                case 3:  
+                    adminSystem.showRecentActions();  
+                    break;  
+                case 4:  
+                    return;  
+                default:  
+                    System.out.println("Invalid choice.");  
+            }  
+        }  
+    }  
+    private static void userPanel(UserSystem userSystem, Scanner scanner) throws SQLException {  
+        while (true) {  
+            System.out.println("\n=== User Panel ===");  
+            System.out.println("1. View Available Books");  
+            System.out.println("2. Request to Borrow Book");  
+            System.out.println("3. Process Requests");  
+            System.out.println("4. Back to Main Menu");  
+            System.out.print("Select option: ");  
+             
+            int choice = scanner.nextInt();  
+            scanner.nextLine();  
+             
+            switch (choice) {  
+                case 1:  
+                    userSystem.displayBooks();  
+                    break;  
+                case 2:  
+                    userSystem.requestBook(scanner);  
+                    break;  
+                case 3:  
+                    userSystem.processRequests();  
+                    break;  
+                case 4:  
+                    return;  
+                default:  
+                    System.out.println("Invalid choice.");  
+            }  
+        }  
+    }  
+} 
+
